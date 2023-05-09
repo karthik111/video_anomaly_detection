@@ -7,3 +7,9 @@
 To do:
 - Extract feature from interim layer
 - Read up the Inception architecture
+
+08-May-2023
+- Coded the feature extractor layer
+
+To do:
+- Build a simple classification model based on the feature extractor of a few video clips. 
