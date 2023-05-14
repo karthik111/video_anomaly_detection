@@ -12,4 +12,5 @@ To do:
 - Coded the feature extractor layer
 
 To do:
-- Build a simple classification model based on the feature extractor of a few video clips. 
+- Build a simple classification model based on the feature extractor of a few video clips. z
+- Build a UMAP dimensionality reducer for different anomaly types
