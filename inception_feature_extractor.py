@@ -19,7 +19,7 @@ x = Dense(1024, activation='relu')(x)
 
 # Add a softmax layer for classification
 predictions = Dense(num_classes, activation='softmax')(x)
-import 
+#import
 # Create the model
 model = Model(inputs=base_model.input, outputs=predictions)
 

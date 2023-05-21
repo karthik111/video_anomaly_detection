@@ -12,5 +12,10 @@ To do:
 - Coded the feature extractor layer
 
 To do:
-- Build a simple classification model based on the feature extractor of a few video clips. z
+- Build a simple classification model based on the feature extractor of a few video clips. 
+- Obtain anomaly detection accuracy. 
 - Build a UMAP dimensionality reducer for different anomaly types
+- Compare current feature extractor to embeddings from a vision transformer
+
+20-May-2023
+- Built a CIFAR 10 classifier with custom images to be used for to process the interim layer of video feature extractor
