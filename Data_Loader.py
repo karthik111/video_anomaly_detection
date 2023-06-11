@@ -11,9 +11,21 @@ class MultiZipVideoDataset(Dataset):
         self.classes, self.class_to_idx = self._find_classes()
         self.samples = self._make_dataset()
 
+    def read_zip_video(self, p):
+        import decord
+        import io
+
+        video = p.read_bytes()
+        file_obj = io.BytesIO(video)
+        vr = decord.VideoReader(file_obj)
+        frames = vr.get_batch(range(0, len(vr) - 1, 5))
+        print(f"No of frames: {len(vr)}")
+        return frames.asnumpy()
+
     def __getitem__(self, index):
         video_path, class_idx = self.samples[index]
-        video, audio, info = read_video(video_path)
+        print(f"In getitem: {class_idx}, {str(video_path)}")
+        video = self.read_zip_video(video_path)
         if self.transform:
             video = self.transform(video)
         return video, class_idx
@@ -80,7 +92,7 @@ zip_file_paths = [os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\
                    ]
 
 dataset = MultiZipVideoDataset(zip_file_paths=zip_file_paths, transform=None)
-dataloader = torch.utils.data.DataLoader(dataset, batch_size=32, shuffle=True)
+dataloader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=True)
 #
 # import torch
 # import torchvision

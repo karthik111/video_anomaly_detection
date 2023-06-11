@@ -1,11 +1,13 @@
 import Data_Loader
 import os
 import io
+from Data_Loader import MultiZipVideoDataset
+import torch
 
 samples = []
 
 if samples == []:
-    p_file_paths = [os.path.normpath(
+    zip_file_paths = [os.path.normpath(
         r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-1.zip'),
                     os.path.normpath(
                         r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-2.zip'),
