@@ -19,3 +19,11 @@ To do:
 
 20-May-2023
 - Built a CIFAR 10 classifier with custom images to be used for to process the interim layer of video feature extractor
+
+24-Jun
+-  Video resnet model uses 3D convolutions with variable length output in the penultimate layer
+-  This doesn't allow the penultimate Layer 4 to be used for downstream learning tasks that need a fixed length feature input
+- used the torch summary library to review output model sizes based on given video input - very useful
+- Reverted to last layer of global average pool layer which returns (512) size output
+- Questions
+  - Will attention be needed given that temporal features are detected in the Video res net model (R3D)

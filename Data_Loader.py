@@ -9,6 +9,7 @@ class MultiZipVideoDataset(Dataset):
         self.zip_file_paths = zip_file_paths
         self.transform = transform
         self.classes, self.class_to_idx = self._find_classes()
+        print(self.classes, self.class_to_idx)
         self.samples = self._make_dataset()
 
     def read_zip_video(self, p):
@@ -52,8 +53,10 @@ class MultiZipVideoDataset(Dataset):
         for zip_file_path in zip_file_paths:
             with zipfile.ZipFile(zip_file_path, 'r') as zip_file:
                 for zip_info in zip_file.infolist():
-                    if zip_info.is_dir() and zip_info.filename.count('/') > 1:
+                    if zip_info.is_dir() and zip_info.filename.count('/') >= 1:
                         class_name = zip_info.filename[zip_info.filename.find('/') + 1:zip_info.filename.rfind('/')]
+                        if class_name == '':
+                            class_name = 'Normal'
                         if class_name not in classes:
                             classes.append(class_name)
                             class_to_idx[class_name] = len(classes) - 1
@@ -79,7 +82,12 @@ class MultiZipVideoDataset(Dataset):
             with zipfile.ZipFile(zip_file_path, 'r') as zip_file:
                 for zip_info in zip_file.infolist():
                     if not zip_info.is_dir():
-                        class_name = zip_info.filename[zip_info.filename.find('/')+1:zip_info.filename.rfind('/')]
+                        #print(zip_info.filename)
+                        if (zip_info.filename).find('Normal') > 1:
+                            class_name = 'Normal'
+                        else:
+                            class_name = zip_info.filename[zip_info.filename.find('/')+1:zip_info.filename.rfind('/')]
+                        #print(class_name)
                         class_idx = self.class_to_idx[class_name]
                         video_path = zipfile.Path(zip_file_path, at=zip_info.filename)
                         samples.append((video_path, class_idx))
@@ -89,6 +97,7 @@ import os
 
 zip_file_paths = [os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-1.zip'),
                   os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-2.zip'),
+                os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Training-Normal-Videos-Part-1.zip'),
                    ]
 
 dataset = MultiZipVideoDataset(zip_file_paths=zip_file_paths, transform=None)

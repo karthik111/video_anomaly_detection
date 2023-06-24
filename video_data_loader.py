@@ -1,6 +1,6 @@
 import zipfile
 
-with zipfile.ZipFile("C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Testing_Normal_Videos.zip") as zip:
+with zipfile.ZipFile("C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Training-Normal-Videos-Part-1.zip") as zip:
     print("As table:")
     print(zip.printdir()) # display files and folders in tabular format
     print("\nAs list:")
