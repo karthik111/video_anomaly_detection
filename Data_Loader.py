@@ -4,6 +4,14 @@ from torch.utils.data import Dataset
 from torchvision.io import read_video
 import zipfile
 
+import logging
+from datetime import datetime
+
+current_day = datetime.now().strftime("%d-%m-%y")
+
+logging.basicConfig(filename=f'log_file_{current_day}.log', level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
+
 class MultiZipVideoDataset(Dataset):
     def __init__(self, zip_file_paths, transform=None):
         self.zip_file_paths = zip_file_paths
@@ -21,11 +29,13 @@ class MultiZipVideoDataset(Dataset):
         vr = decord.VideoReader(file_obj)
         frames = vr.get_batch(range(0, len(vr) - 1, 5))
         print(f"No of frames: {len(vr)}")
+        logging.info(f"No of frames: {len(vr)}")
         return frames.asnumpy()
 
     def __getitem__(self, index):
         video_path, class_idx = self.samples[index]
         print(f"In getitem: {class_idx}, {str(video_path)}")
+        logging.info(f"In getitem: {class_idx}, {str(video_path)}")
         video = self.read_zip_video(video_path)
         if self.transform:
             video = self.transform(video)
