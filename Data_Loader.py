@@ -110,6 +110,22 @@ zip_file_paths = [os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\
                 os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Training-Normal-Videos-Part-1.zip'),
                    ]
 
+
+zip_file_paths_train1 = [os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-1.zip'),
+                  os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-2.zip'),
+                os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Training-Normal-Videos-Part-1.zip'),
+                   ]
+
+
+zip_file_paths_train2 = [os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-3.zip'),
+                  os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-4.zip'),
+                os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Training-Normal-Videos-Part-2.zip'),
+                        ]
+
+zip_file_paths_test = [os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Testing_Normal_Videos.zip')]
+
+zip_file_paths = zip_file_paths_train1 + zip_file_paths_train2
+
 dataset = MultiZipVideoDataset(zip_file_paths=zip_file_paths, transform=None)
 dataloader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=True)
 #

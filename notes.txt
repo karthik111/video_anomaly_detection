@@ -1,0 +1,20 @@
+testing videos zip
+normal = 150
+
+all videos zips = 1750
+
+all videos = 1750 + 150 = 1900
+
+Number of videos in each class:
+d = {'abuse': 50.0, 'arrest': 4549.0, 'arson': 49.0, 'assault': 50.0, 'burglary': 99.0, 'explosion': 49.0, 'fighting': 50.0, 'roadaccidents': 150.0, 'robbery': 150.0, 'shooting': 50.0, 'shoplifting': 49.0, 'stealing': 100.0, 'training-normal-videos-part-1': 413.0, 'training-normal-videos-part-2': 349.0, 'vandalism': 50.0}
+sum: 1707
+
+From list of train and test video list:
+df_train: 1610
+df_test:290
+Total: 1900
+
+load error'ed out files: 45
+
+
+

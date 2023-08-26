@@ -48,7 +48,9 @@ target_label_list = [0 if (value==12 or value==13) else 1 for value in sk_data.t
 
 indices = np.arange(len(feature_array_list))
 # Split the data into training and validation sets
-X_train, X_val, y_train, y_val, indices_train, indices_test = train_test_split(feature_array_list, target_label_list, indices, test_size=0.2, random_state=42)
+# X_train, X_val, y_train, y_val, indices_train, indices_test = train_test_split(feature_array_list, target_label_list, indices, test_size=0.2, random_state=42)
+
+## TO DO: RUN run_sk_loader.py
 
 from sklearn import svm
 from sklearn.ensemble import RandomForestClassifier

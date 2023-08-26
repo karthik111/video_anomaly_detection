@@ -1,5 +1,8 @@
 # counts the number of videos in the dataset
 
+classes = dataset.classes
+samples = dataset.samples
+
 num_classes = dict(zip(classes, np.zeros(len(classes))))
 
 idx_to_classes = {value: key for key, value in dataset.class_to_idx.items()}
