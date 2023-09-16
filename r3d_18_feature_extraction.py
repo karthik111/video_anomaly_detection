@@ -11,6 +11,16 @@ def hook(module, input, output):
     features = output
 
 def extract_penultimate_features(vid):
+    """
+       Extracts Feature Tensor 1*512 shape for each video passed to it.
+
+       Args:
+           vid (list): T*C*W*H stack of frames within a video
+
+       Returns:
+           penultimate_features: Tensor of extracted features torch.Size([1, 512, 1])
+       """
+
     # Step 1: Initialize model with the best available weights
     weights = R3D_18_Weights.DEFAULT
     model = r3d_18(weights=weights)

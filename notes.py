@@ -18,3 +18,10 @@ plt.xlabel('Class Labels')
 plt.ylabel('Number of Samples')
 plt.xticks(rotation=25)
 plt.show()
+
+# list enumeration
+indices = [i for i, x in enumerate(target_label_list) if x == 1]
+
+[sk_data.filenames[i] for i in indices]
+
+[sk_data.filenames[j] for j in [i for i, x in enumerate(target_label_list) if x == 1]]

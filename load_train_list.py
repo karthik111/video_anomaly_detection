@@ -1,3 +1,5 @@
+# Loads the list of training and test videos from text files provided with the dataset
+
 import pandas as pd
 
 def load_file_list(file_name:str) -> pd.DataFrame:

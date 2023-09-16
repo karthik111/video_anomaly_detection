@@ -1,3 +1,7 @@
+# Implements a zipped data set and data loader functionality
+# Uses Decord video reader to read video files within a zip into a byte array
+# and then returns it as a series of frames.   Frame sampling is limited to one in 5 frames
+# frames as returned as numpy arrays of (num_frames, L, W, 3)
 import os
 import torch
 from torch.utils.data import Dataset
@@ -9,8 +13,38 @@ from datetime import datetime
 
 current_day = datetime.now().strftime("%d-%m-%y")
 
-logging.basicConfig(filename=f'log_file_{current_day}.log', level=logging.INFO,
+logging.basicConfig(filename=f'zip_dataset_log_file_{current_day}.log', level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')
+
+# zip_file_paths = [os.path.normpath(
+#     r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-1.zip'),
+#                   os.path.normpath(
+#                       r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-2.zip'),
+#                   os.path.normpath(
+#                       r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Training-Normal-Videos-Part-1.zip'),
+#                   ]
+#
+# zip_file_paths_train1 = [os.path.normpath(
+#     r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-1.zip'),
+#                          os.path.normpath(
+#                              r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-2.zip'),
+#                          os.path.normpath(
+#                              r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Training-Normal-Videos-Part-1.zip'),
+#                          ]
+#
+# zip_file_paths_train2 = [os.path.normpath(
+#     r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-3.zip'),
+#                          os.path.normpath(
+#                              r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-4.zip'),
+#                          os.path.normpath(
+#                              r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Training-Normal-Videos-Part-2.zip'),
+#                          ]
+#
+# zip_file_paths_test = [os.path.normpath(
+#     r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Testing_Normal_Videos.zip')]
+#
+# zip_file_paths = zip_file_paths_train1 + zip_file_paths_train2
+
 
 class MultiZipVideoDataset(Dataset):
     def __init__(self, zip_file_paths, transform=None):
@@ -60,7 +94,7 @@ class MultiZipVideoDataset(Dataset):
     def _find_classes(self):
         classes = []
         class_to_idx = {}
-        for zip_file_path in zip_file_paths:
+        for zip_file_path in self.zip_file_paths:
             with zipfile.ZipFile(zip_file_path, 'r') as zip_file:
                 for zip_info in zip_file.infolist():
                     if zip_info.is_dir() and zip_info.filename.count('/') >= 1:
@@ -103,31 +137,54 @@ class MultiZipVideoDataset(Dataset):
                         samples.append((video_path, class_idx))
         return samples
 
-import os
-
-zip_file_paths = [os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-1.zip'),
-                  os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-2.zip'),
-                os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Training-Normal-Videos-Part-1.zip'),
-                   ]
 
 
-zip_file_paths_train1 = [os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-1.zip'),
-                  os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-2.zip'),
-                os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Training-Normal-Videos-Part-1.zip'),
-                   ]
+def get_dataset_and_loader():
+    zip_file_paths = [os.path.normpath(
+        r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-1.zip'),
+        os.path.normpath(
+            r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-2.zip'),
+        os.path.normpath(
+            r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Training-Normal-Videos-Part-1.zip'),
+    ]
+
+    zip_file_paths_train1 = [os.path.normpath(
+        r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-1.zip'),
+        os.path.normpath(
+            r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-2.zip'),
+        os.path.normpath(
+            r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Training-Normal-Videos-Part-1.zip'),
+    ]
+
+    zip_file_paths_train2 = [os.path.normpath(
+        r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-3.zip'),
+        os.path.normpath(
+            r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-4.zip'),
+        os.path.normpath(
+            r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Training-Normal-Videos-Part-2.zip'),
+    ]
+
+    zip_file_paths_test = [os.path.normpath(
+        r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Testing_Normal_Videos.zip')]
+
+    zip_file_paths = zip_file_paths_train1 + zip_file_paths_train2
 
 
-zip_file_paths_train2 = [os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-3.zip'),
-                  os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-4.zip'),
-                os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Training-Normal-Videos-Part-2.zip'),
-                        ]
+    dataset = MultiZipVideoDataset(zip_file_paths=zip_file_paths, transform=None)
+    dataloader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=True)
 
-zip_file_paths_test = [os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Testing_Normal_Videos.zip')]
+    return dataset, dataloader
 
-zip_file_paths = zip_file_paths_train1 + zip_file_paths_train2
+def main():
+    print("Calling Data_Loader...")
+    return get_dataset_and_loader()
+    # You can put your main code here
 
-dataset = MultiZipVideoDataset(zip_file_paths=zip_file_paths, transform=None)
-dataloader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=True)
+# Check if the script is being run directly (not imported as a module)
+if __name__ == "__main__":
+    main()
+#
+
 #
 # import torch
 # import torchvision

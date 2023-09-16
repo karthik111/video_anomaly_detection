@@ -9,7 +9,7 @@ import os
 zip_file_paths = [os.path.normpath(r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Anomaly-Videos-Part-1.zip')] #, "C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\data\\Testing_Normal_Videos.zip"]
 file_to_open = 'Anomaly-Videos-Part-1/Arson/Arson031_x264.mp4'
 file_to_open = r'C:\Users\karthik.venkat\PycharmProjects\video_anomaly_detection\Anomaly-Videos-Part-1\Arson\Arson031_x264.mp4'
-#file_to_open = 'Arson031_x264.mp4'
+file_to_open = 'Assault007_x264.mp4'
 
 # open the zip file
 with zipfile.ZipFile(zip_file_paths[0], "r") as zip_file:

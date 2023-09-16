@@ -9,8 +9,12 @@ def pt_loader(path):
     sample = torch.load(path)
     return sample
 
-
+# use for the full train test list
 folder_array = [os.getcwd(), 'processed', 'data']
+
+# use for the extracted normal and anomaly segments from the frame marked videos
+folder_array = [os.getcwd(), 'test_videos', 'processed']
+
 folder_path = os.path.join(*folder_array)
 
 dataset = datasets.DatasetFolder(
@@ -43,7 +47,12 @@ for i in range(len(sk_data.target)):
     num_classes[ dict_idx_to_class[sk_data.target[i] ] ] += 1
 ##
 
+# use for full train test list
 target_label_list = [0 if (value==12 or value==13) else 1 for value in sk_data.target]
+
+# use for extracted normal or anomaly segments
+target_label_list = [0 if (value==7) else 1 for value in sk_data.target]
+
 #target_label_list = sk_data.target
 
 indices = np.arange(len(feature_array_list))
