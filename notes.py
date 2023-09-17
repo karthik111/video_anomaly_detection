@@ -25,3 +25,23 @@ indices = [i for i, x in enumerate(target_label_list) if x == 1]
 [sk_data.filenames[i] for i in indices]
 
 [sk_data.filenames[j] for j in [i for i, x in enumerate(target_label_list) if x == 1]]
+
+# saving to file
+pd.DataFrame(file_names_pass).to_csv('correct_class_videos_full_list.txt', header=False)
+
+# finding files not present in the feature extracted list of pt files
+data1 = df_test[1]
+len(data1)
+290
+
+data2 = (df1[df1.isin(df_test[1])])
+len(data2)
+288
+# Find items in Series 1 that are not in Series 2
+items_not_in_series2 = data1[~data1.isin(data2)]
+len(items_not_in_series2)
+2
+items_not_in_series2
+normalvideos924x264
+normalvideos935x264
+Name: 1, dtype: object

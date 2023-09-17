@@ -3,7 +3,8 @@ from torchvision.io.video import read_video
 from torchvision.models.video import r3d_18, R3D_18_Weights
 
 #vid, _, _ = read_video(r'C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\archery.mp4', output_format="TCHW")
-vid, _, _ = read_video(r'C:\Users\karthik.venkat\PycharmProjects\video_anomaly_detection\Explosion001_x264.mp4', output_format="TCHW")
+#vid, _, _ = read_video(r'C:\Users\karthik.venkat\PycharmProjects\video_anomaly_detection\Explosion003_x264.mp4', output_format="TCHW")
+vid, _, _ = read_video(r'C:\Users\karthik.venkat\PycharmProjects\video_anomaly_detection\Assault007_x264.mp4', output_format="TCHW")
 
 vid = vid[::5]  # optionally shorten duration
 

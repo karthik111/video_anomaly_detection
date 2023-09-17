@@ -121,3 +121,13 @@ for i in indices_fail:
     print(sk_data.filenames[indices_test[i]])
 
 file_names = [sk_data.filenames[indices_test[i]] for i in indices_fail]
+
+# get list of passed files
+mask_pass = y_val == predictions
+
+indices_pass = np.where(mask_pass)[0]
+
+# for i in indices_pass:
+#     print(sk_data.filenames[indices_pass[i]])
+
+file_names_pass = [sk_data.filenames[indices_test[i]] for i in indices_pass]

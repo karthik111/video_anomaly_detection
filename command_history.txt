@@ -1,0 +1,875 @@
+# 17-Sep
+
+video = torchvision.io.VideoReader(file_to_open, stream)
+video.get_metadata()
+type(video)
+de.VideoReader(file_to_open)
+arr = de.VideoReader(file_to_open)
+type(arr)
+len(arr)
+vr = decord.VideoReader(file_to_open)
+        frames = vr.get_batch(range(0, len(vr) - 1, 5))
+        print(f"No of frames: {len(vr)}")
+        logging.info(f"No of frames: {len(vr)}")
+        return frames.asnumpy()
+import decord
+vr = decord.VideoReader(file_to_open)
+frames = vr.get_batch(range(0, len(vr) - 1, 5))
+print(f"No of frames: {len(vr)}")
+logging.info(f"No of frames: {len(vr)}")
+
+len(frames)
+frames.shape
+1952/5
+logging
+batch
+dataset.samples
+dataset.__getitem__(3)
+d, _ = Data_Loader.get_dataset_and_loader()
+d.samples
+d.samples[0]
+dataset.video_files
+runfile('C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\count_num_classes.py', wdir='C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection')
+runfile('C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\Data_Loader.py', wdir='C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection')
+class_names = ['Normal', 'Abuse', 'Assault', 'Arrest', 'Arson', 'Burglary', 'Fighting', 'Explosion', 'Robbery', 'RoadAccidents', 'Shooting', 'Vandalism', 'Stealing', 'Shoplifting']
+'anomaly_1_Abuse028_x264.mp4' in class_names
+'anomaly_1_ Abuse 028_x264.mp4' in class_names
+def has_substring_in_list(input_string, substrings_list):
+    for substring in substrings_list:
+        if substring in input_string:
+            return True
+    return False
+
+# Example usage:
+has_substring_in_list('anomaly_1_ Abuse 028_x264.mp4', class_names)
+'Abuse' in 'anomaly_1_ Abuse 028_x264.mp4'
+'Abus e' in 'anomaly_1_ Abuse 028_x264.mp4'
+data
+dataset.video_files[0]
+dataset.video_files[1]
+dataset.video_files[4]
+dataset.video_files[5]
+dataset.video_files[6]
+dataset.video_files[7]
+'anomaly' in dataset.video_files[7]
+not 'anomaly' in dataset.video_files[7]
+runfile('C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\VideoDataset.py', wdir='C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection')
+dataset.classes
+dataset.video_files[-1]
+dataset.video_files[-2]
+dataset.video_files[2]
+video_folder = os.path.normpath(r'.\\test_videos')
+dataset = VideoDataset.VideoDataset(root_dir=video_folder, transform=None)
+
+classes = dataset.classes
+samples = dataset.video_files
+
+classes
+samples
+len(samples)
+len(classes)
+
+current_day = datetime.now().strftime("%d-%m-%y")
+
+logging.basicConfig(filename=f'Parse_data_set_log_file_{current_day}.log', level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
+
+logging.info(f"Feature processed earlier: {video_name}")
+logging.info(f"Feature processed earlier: {a}")
+logging.warning('Watch out!')
+logging.info('Watch out!')
+logging.error('Watch out!')
+logging.INFO
+logging.basicConfig()
+logging.getLogger()
+logging.basicConfig(filename=f'Parse_data_set_log_file_{current_day}.log', level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
+filename=f'Parse_data_set_log_file_{current_day}.log'
+filename
+logging.getLevelName()
+pwd
+os.getcwd()
+logger.error('This should go to both console and file')
+logging.error('This should go to both console and file')
+import logging
+logging.basicConfig(filename='example.log', encoding='utf-8', level=logging.DEBUG)
+logging.debug('This message should go to the log file')
+logging.info('So should this')
+logging.warning('And this, too')
+logging.error('And non-ASCII stuff, too, like Øresund and Malmö')
+import logging
+logging.warning('Watch out!')  # will print a message to the console
+logging.info('I told you so')  # will not print anything
+runfile('C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\parse_data_loader.py', wdir='C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection')
+parse_video_file_dataset()
+138*3
+import os
+from torchvision import datasets
+import sklearn.datasets
+import torch
+import numpy as np
+
+
+def pt_loader(path):
+    sample = torch.load(path)
+    return sample
+
+# use for the full train test list
+folder_array = [os.getcwd(), 'processed', 'data']
+
+# use for the extracted normal and anomaly segments from the frame marked videos
+folder_array = [os.getcwd(), 'test_videos', 'processed']
+
+folder_path = os.path.join(*folder_array)
+
+dataset = datasets.DatasetFolder(
+    root=folder_path,
+    loader=pt_loader,
+    extensions=['.pt']
+)
+
+sk_data = sklearn.datasets.load_files(container_path=f'{folder_path}')
+
+from sklearn.model_selection import train_test_split
+
+
+labels = sk_data.target_names
+
+classes_dict = {value: index for index, value in enumerate(sk_data.target_names)}
+dict_idx_to_class = {index: value for index, value in enumerate(sk_data.target_names)}
+
+##
+num_classes = dict(zip(sk_data.target_names, np.zeros(len(sk_data.target_names))))
+
+idx_to_classes = {value: key for key, value in dataset.class_to_idx.items()}
+
+for i in range(len(sk_data.target)):
+    #num_classes[ idx_to_classes[ samples[i][1] ] ] += 1
+    num_classes[ dict_idx_to_class[sk_data.target[i] ] ] += 1
+##
+
+
+count(num_classes.values())
+num_classes.values()
+num_classes.values().__len__()
+len(num_classes.values())
+sk_data.target
+idx_to_classes
+runfile('C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\naive_classifier.py', wdir='C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection')
+target_label_list.count(0)
+target_label_list.count(1)
+target_label_list.__len__()
+target_label_list.index()
+len([dataset.samples[i] for i in indices])
+indices = [i for i, x in enumerate(target_label_list) if x == 0]
+indices
+[dataset.samples[i] for i in indices]
+[sk_data.data[i] for i in indices]
+[sk_data.filenames[i] for i in indices]
+len([sk_data.filenames[i] for i in indices])
+indices = [i for i, x in enumerate(target_label_list) if x == 1]
+not [sk_data.filenames[j] for j in [i for i, x in enumerate(target_label_list) if x == 1]]
+[sk_data.filenames[j] for j in [i for i, x in enumerate(target_label_list) if x == 1]]
+[sk_data.filenames[j] for j in [i for i, x in enumerate(target_label_list) if x == 0]]
+import os
+from torchvision import datasets
+import sklearn.datasets
+import torch
+import numpy as np
+
+
+def pt_loader(path):
+    sample = torch.load(path)
+    return sample
+
+
+folder_array = [os.getcwd(), 'processed', 'data']
+folder_path = os.path.join(*folder_array)
+
+dataset = datasets.DatasetFolder(
+    root=folder_path,
+    loader=pt_loader,
+    extensions=['.pt']
+)
+
+sk_data = sklearn.datasets.load_files(container_path=f'{folder_path}')
+
+from sklearn.model_selection import train_test_split
+
+import io
+tensorObject = torch.load(io.BytesIO(sk_data.data[0]))
+
+feature_array_list = [torch.load(io.BytesIO(byte_obj)).numpy() for byte_obj in sk_data.data]
+
+labels = sk_data.target_names
+
+classes_dict = {value: index for index, value in enumerate(sk_data.target_names)}
+dict_idx_to_class = {index: value for index, value in enumerate(sk_data.target_names)}
+
+##
+num_classes = dict(zip(sk_data.target_names, np.zeros(len(sk_data.target_names))))
+
+idx_to_classes = {value: key for key, value in dataset.class_to_idx.items()}
+
+for i in range(len(sk_data.target)):
+    #num_classes[ idx_to_classes[ samples[i][1] ] ] += 1
+    num_classes[ dict_idx_to_class[sk_data.target[i] ] ] += 1
+##
+
+target_label_list = [0 if (value==12 or value==13) else 1 for value in sk_data.target]
+#target_label_list = sk_data.target
+
+indices = np.arange(len(feature_array_list))
+
+
+classifier.fit(np.squeeze(X_train), y_train)
+
+# Predict using the trained classifier
+predictions = classifier.predict(np.squeeze(X_val))
+
+from sklearn.metrics import accuracy_score, roc_auc_score
+
+accuracy = accuracy_score(y_val, predictions)
+# Print the accuracy
+print("Accuracy:", accuracy)
+
+# Compute the AUC score
+import matplotlib.pyplot as plt
+from sklearn.metrics import RocCurveDisplay
+
+probs = classifier.predict_proba(np.squeeze(X_val))
+auc_score = roc_auc_score(y_val, probs[:, 1])
+RocCurveDisplay.from_predictions(y_val, probs[:, 1])
+# Print the AUC score
+print("AUC Score:", auc_score)
+plt.show()
+
+from sklearn.model_selection import cross_val_score
+
+# Perform cross-validation with 5 folds
+scores = cross_val_score(classifier, np.squeeze(feature_array_list), target_label_list, cv=5)
+
+# Print the accuracy scores for each fold
+print("Accuracy scores:", scores)
+
+# Print the average accuracy across all folds
+print("Average accuracy:", scores.mean())
+
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import ConfusionMatrixDisplay
+
+
+# Assuming you have true labels (y_true) and predicted labels (y_pred)
+cm = confusion_matrix(y_val, predictions)
+
+# If you have multiclass classification, you can use normalize='true' or 'all' to get normalized values in the heatmap.
+# For binary classification, you can omit the normalize parameter.
+disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+disp.plot(cmap='Blues', values_format='d')
+
+plt.title("Confusion Matrix")
+plt.show()
+
+# find false predictions
+
+mask = y_val != predictions
+
+indices_fail = np.where(mask)[0]
+
+for i in indices_fail:
+    print(sk_data.filenames[indices_test[i]])
+
+file_names = [sk_data.filenames[indices_test[i]] for i in indices_fail]
+
+import os
+from torchvision import datasets
+import sklearn.datasets
+import torch
+import numpy as np
+
+
+def pt_loader(path):
+    sample = torch.load(path)
+    return sample
+
+
+folder_array = [os.getcwd(), 'processed', 'data']
+folder_path = os.path.join(*folder_array)
+
+dataset = datasets.DatasetFolder(
+    root=folder_path,
+    loader=pt_loader,
+    extensions=['.pt']
+)
+
+sk_data = sklearn.datasets.load_files(container_path=f'{folder_path}')
+
+from sklearn.model_selection import train_test_split
+
+import io
+tensorObject = torch.load(io.BytesIO(sk_data.data[0]))
+
+feature_array_list = [torch.load(io.BytesIO(byte_obj)).numpy() for byte_obj in sk_data.data]
+
+labels = sk_data.target_names
+
+classes_dict = {value: index for index, value in enumerate(sk_data.target_names)}
+dict_idx_to_class = {index: value for index, value in enumerate(sk_data.target_names)}
+
+##
+num_classes = dict(zip(sk_data.target_names, np.zeros(len(sk_data.target_names))))
+
+idx_to_classes = {value: key for key, value in dataset.class_to_idx.items()}
+
+for i in range(len(sk_data.target)):
+    #num_classes[ idx_to_classes[ samples[i][1] ] ] += 1
+    num_classes[ dict_idx_to_class[sk_data.target[i] ] ] += 1
+##
+
+target_label_list = [0 if (value==12 or value==13) else 1 for value in sk_data.target]
+#target_label_list = sk_data.target
+
+indices = np.arange(len(feature_array_list))
+# Split the data into training and validation sets
+# X_train, X_val, y_train, y_val, indices_train, indices_test = train_test_split(feature_array_list, target_label_list, indices, test_size=0.2, random_state=42)
+
+import os
+from torchvision import datasets
+import sklearn.datasets
+import torch
+import numpy as np
+
+
+def pt_loader(path):
+    sample = torch.load(path)
+    return sample
+
+# use for the full train test list
+folder_array = [os.getcwd(), 'processed', 'data']
+
+# use for the extracted normal and anomaly segments from the frame marked videos
+folder_array = [os.getcwd(), 'test_videos', 'processed']
+
+folder_path = os.path.join(*folder_array)
+
+dataset = datasets.DatasetFolder(
+    root=folder_path,
+    loader=pt_loader,
+    extensions=['.pt']
+)
+
+sk_data = sklearn.datasets.load_files(container_path=f'{folder_path}')
+
+from sklearn.model_selection import train_test_split
+
+import io
+tensorObject = torch.load(io.BytesIO(sk_data.data[0]))
+
+feature_array_list = [torch.load(io.BytesIO(byte_obj)).numpy() for byte_obj in sk_data.data]
+
+labels = sk_data.target_names
+
+classes_dict = {value: index for index, value in enumerate(sk_data.target_names)}
+dict_idx_to_class = {index: value for index, value in enumerate(sk_data.target_names)}
+
+##
+num_classes = dict(zip(sk_data.target_names, np.zeros(len(sk_data.target_names))))
+
+idx_to_classes = {value: key for key, value in dataset.class_to_idx.items()}
+
+for i in range(len(sk_data.target)):
+    #num_classes[ idx_to_classes[ samples[i][1] ] ] += 1
+    num_classes[ dict_idx_to_class[sk_data.target[i] ] ] += 1
+##
+
+# use for full train test list
+target_label_list = [0 if (value==12 or value==13) else 1 for value in sk_data.target]
+
+# use for extracted normal or anomaly segments
+target_label_list = [0 if (value==7) else 1 for value in sk_data.target]
+
+#target_label_list = sk_data.target
+
+indices = np.arange(len(feature_array_list))
+# Split the data into training and validation sets
+X_train, X_val, y_train, y_val, indices_train, indices_test = train_test_split(feature_array_list, target_label_list, indices, test_size=0.2, random_state=42)
+
+from sklearn import svm
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.dummy import DummyClassifier
+from sklearn.ensemble import GradientBoostingClassifier
+
+
+# Predict using the trained classifier
+predictions = classifier.predict(np.squeeze(X_val))
+
+from sklearn.metrics import accuracy_score, roc_auc_score
+
+accuracy = accuracy_score(y_val, predictions)
+# Print the accuracy
+print("Accuracy:", accuracy)
+
+# Compute the AUC score
+import matplotlib.pyplot as plt
+from sklearn.metrics import RocCurveDisplay
+
+probs = classifier.predict_proba(np.squeeze(X_val))
+auc_score = roc_auc_score(y_val, probs[:, 1])
+RocCurveDisplay.from_predictions(y_val, probs[:, 1])
+# Print the AUC score
+print("AUC Score:", auc_score)
+plt.show()
+
+from sklearn.model_selection import cross_val_score
+
+# Perform cross-validation with 5 folds
+scores = cross_val_score(classifier, np.squeeze(feature_array_list), target_label_list, cv=5)
+
+# Print the accuracy scores for each fold
+print("Accuracy scores:", scores)
+
+# Print the average accuracy across all folds
+print("Average accuracy:", scores.mean())
+
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import ConfusionMatrixDisplay
+
+
+# Assuming you have true labels (y_true) and predicted labels (y_pred)
+cm = confusion_matrix(y_val, predictions)
+
+# If you have multiclass classification, you can use normalize='true' or 'all' to get normalized values in the heatmap.
+# For binary classification, you can omit the normalize parameter.
+disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+disp.plot(cmap='Blues', values_format='d')
+
+plt.title("Confusion Matrix")
+plt.show()
+
+# find false predictions
+
+mask = y_val != predictions
+
+indices_fail = np.where(mask)[0]
+
+for i in indices_fail:
+    print(sk_data.filenames[indices_test[i]])
+
+file_names = [sk_data.filenames[indices_test[i]] for i in indices_fail]
+
+import os
+from torchvision import datasets
+import sklearn.datasets
+import torch
+import numpy as np
+
+
+def pt_loader(path):
+    sample = torch.load(path)
+    return sample
+
+# use for the full train test list
+folder_array = [os.getcwd(), 'processed', 'data']
+
+# use for the extracted normal and anomaly segments from the frame marked videos
+folder_array = [os.getcwd(), 'test_videos', 'processed']
+
+folder_path = os.path.join(*folder_array)
+
+dataset = datasets.DatasetFolder(
+    root=folder_path,
+    loader=pt_loader,
+    extensions=['.pt']
+)
+
+sk_data = sklearn.datasets.load_files(container_path=f'{folder_path}')
+
+from sklearn.model_selection import train_test_split
+
+import io
+tensorObject = torch.load(io.BytesIO(sk_data.data[0]))
+
+feature_array_list = [torch.load(io.BytesIO(byte_obj)).numpy() for byte_obj in sk_data.data]
+
+labels = sk_data.target_names
+
+classes_dict = {value: index for index, value in enumerate(sk_data.target_names)}
+dict_idx_to_class = {index: value for index, value in enumerate(sk_data.target_names)}
+
+##
+num_classes = dict(zip(sk_data.target_names, np.zeros(len(sk_data.target_names))))
+
+idx_to_classes = {value: key for key, value in dataset.class_to_idx.items()}
+
+for i in range(len(sk_data.target)):
+    #num_classes[ idx_to_classes[ samples[i][1] ] ] += 1
+    num_classes[ dict_idx_to_class[sk_data.target[i] ] ] += 1
+##
+
+num_classes
+print(num_classes)
+classes_dict
+dict_idx_to_class
+sum(classes_dict.values())
+sum(num_classes.values())
+cm.sum()
+.2*460
+a = np.range(0,100)
+a = range(0,100)
+a = np.arange(0,100)
+a = a[::5]
+a
+len(a)
+import decord as de
+de.video_reader('r'C:\Users\karthik.venkat\PycharmProjects\video_anomaly_detection\test_videos\begin_1_Explosion002_x264.mp4')
+de.video_reader(r'C:\Users\karthik.venkat\PycharmProjects\video_anomaly_detection\test_videos\begin_1_Explosion002_x264.mp4')
+de.VideoReader(r'C:\Users\karthik.venkat\PycharmProjects\video_anomaly_detection\test_videos\begin_1_Explosion002_x264.mp4')
+vr = de.VideoReader(r'C:\Users\karthik.venkat\PycharmProjects\video_anomaly_detection\test_videos\begin_1_Explosion002_x264.mp4')
+len(vid)
+v = vr.get_batch()
+v = vr.get_batch(range(0,len(vr)))
+len(v)
+v.reshape
+v.dtype
+type(v)
+v = vr.get_batch(range(0,len(vr))).asnumpy()
+v1 = np.transpose(v, (0, 3, 1, 2))
+v.shape
+vid.shape
+v1.shape
+vid1 = vid.numpy()
+vid1.shape
+sum(vid1-v1)
+sum(vid1-v1) != 0
+vid = vid1
+vid = torch.tensor(vid1)
+vid = torch.tensor(v1)
+
+#vid = vid[::5]  # optionally shorten duration
+
+# Step 1: Initialize model with the best available weights
+weights = R3D_18_Weights.DEFAULT
+model = r3d_18(weights=weights)
+#device = torch.device("cuda:0" if torch.cuda.is_available() else 'cpu')
+# model.to(device)
+model.eval()
+
+# Step 2: Initialize the inference transforms
+preprocess = weights.transforms()
+
+# Step 3: Apply inference preprocessing transforms
+batch = preprocess(vid).unsqueeze(0)
+
+# Step 4: Use the model and print the predicted category
+prediction = model(batch).squeeze(0).softmax(0)
+label = prediction.argmax().item()
+score = prediction[label].item()
+category_name = weights.meta["categories"][label]
+print(f"{category_name}: {100 * score}%")
+
+torch.load(r'C:\Users\karthik.venkat\PycharmProjects\video_anomaly_detection\test_videos\processed\anomaly_1_Explosion028_x264.pt')
+torch.load(r'C:\Users\karthik.venkat\PycharmProjects\video_anomaly_detection\test_videos\processed\explosion\anomaly_1_Explosion028_x264.pt')
+torch.load(r'C:\Users\karthik.venkat\PycharmProjects\video_anomaly_detection\test_videos\processed\explosion\anomaly_1_Explosion028_x264.mp4.pt')
+features = vid torch.load(r'C:\Users\karthik.venkat\PycharmProjects\video_anomaly_detection\test_videos\processed\explosion\anomaly_1_Explosion028_x264.mp4.pt')
+features = torch.load(r'C:\Users\karthik.venkat\PycharmProjects\video_anomaly_detection\test_videos\processed\explosion\anomaly_1_Explosion028_x264.mp4.pt')
+model(features)
+b = preprocess(vid)
+b.shape
+b1 = model(batch)
+b1.shape
+b1.shape.squeeze(0).shape
+b1.squeeze(0).shape
+prediction = model(batch).squeeze(0).softmax(0)
+label = prediction.argmax().item()
+score = prediction[label].item()
+category_name = weights.meta["categories"][label]
+print(f"{category_name}: {100 * score}%")
+
+prediction.shape
+weights.meta["categories"]
+runfile('C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\r3d_18_feature_extraction.py', wdir='C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection')
+features
+features.shape
+# Step 1: Initialize model with the best available weights
+weights = R3D_18_Weights.DEFAULT
+model = r3d_18(weights=weights)
+print(model)
+model.fc.weight
+model.fc.weight.shape
+model.fc.out_features
+print(model.fc.in_features)
+model.fc.eval([1,2])
+model.fc.eval()
+model.fc([1,2])
+t = torch.tensor([1,2])
+import numpy as np
+t = torch.tensor(np.random(512))
+np.range(512)
+np.arange(512)
+t = torch.tensor(np.arange(512))
+model.fc
+model.fc.in_features
+torch.load('C:\Users\karthik.venkat\PycharmProjects\video_anomaly_detection\processed\data\explosion\explosion001_x264.pt')
+torch.load(f'C:\Users\karthik.venkat\PycharmProjects\video_anomaly_detection\processed\data\explosion\explosion001_x264.pt')
+t = torch.load(r'C:\Users\karthik.venkat\PycharmProjects\video_anomaly_detection\processed\data\explosion\explosion001_x264.pt')
+model.fc(t.T)
+model.fc(t)
+t.shape.squeeze(1).shape
+t.shape.squeeze(1)
+t.shape.squeeze(1,1)
+t.transpose()
+t.squeeze(1)
+t.squeeze(1).shape
+t.squeeze().shape
+model.fc(t.squeeze())
+model.fc(t.squeeze()).shape
+prediction = model.fc(t.squeeze()).softmax(0)
+label = prediction.argmax().item()
+score = prediction[label].item()
+category_name = weights.meta["categories"][label]
+print(f"{category_name}: {100 * score}%")
+torch.load(r'C:\Users\karthik.venkat\PycharmProjects\video_anomaly_detection\processed\data\explosion\explosion001_x264.pt')
+t,shape
+t
+type(t)
+t.shape
+t1 = torch.load(r'C:\Users\karthik.venkat\PycharmProjects\video_anomaly_detection\processed\data\explosion\explosion001_x264.pt')
+t1.shape
+model.fc(t1.squeeze()).shape
+__name__
+model = get_model()
+weights = R3D_18_Weights.DEFAULT
+model = r3d_18(weights=weights)
+device = torch.device("cuda:0" if torch.cuda.is_available() else 'cpu')
+    model.to(device)
+device = torch.device("cuda:0" if torch.cuda.is_available() else 'cpu')
+model.to(device)
+weights = R3D_18_Weights.DEFAULT
+model = r3d_18(weights=weights)
+device = torch.device("cuda:0" if torch.cuda.is_available() else 'cpu')
+model.to(device)
+model.eval()
+
+model
+torch.cuda
+torch.cuda.is_available()
+torch.cpu
+torch.cpu.amp
+weights
+print(weights)
+weights.value
+weights = R3D_18_Weights.DEFAULT
+    model = r3d_18(weights=weights)
+    model.to(get_device())
+    model.eval()
+weights = R3D_18_Weights.DEFAULT
+model = r3d_18(weights=weights)
+model.to(get_device())
+model.eval()
+model.device
+model.cpu()
+get_device()
+model.parameters()
+weights = R3D_18_Weights.DEFAULT
+model = r3d_18(weights=weights)
+model.to(get_device())
+model.eval()
+next(model.parameters()).device
+t.to(device)
+t = t.to(device)
+t.device
+get_score_category(model, t)
+runfile('C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\r3d_18_inference.py', wdir='C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection')
+runfile('C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\run_model_with_weights.py', wdir='C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection')
+vid, _, _ = read_video(r'C:\Users\karthik.venkat\PycharmProjects\video_anomaly_detection\test_v', output_format="TCHW")
+runfile('C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\naive_classifier_all_files.py', wdir='C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection')
+
+from sklearn import svm
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.dummy import DummyClassifier
+from sklearn.ensemble import GradientBoostingClassifier
+
+# Create and train an SVM classifier
+classifier = svm.SVC(decision_function_shape='ovo')
+#classifier = RandomForestClassifier()
+#classifier = DummyClassifier(strategy='most_frequent')
+classifier = GradientBoostingClassifier()
+
+classifier.fit(np.squeeze(X_train), y_train)
+
+# Predict using the trained classifier
+predictions = classifier.predict(np.squeeze(X_val))
+
+from sklearn.metrics import accuracy_score, roc_auc_score
+
+accuracy = accuracy_score(y_val, predictions)
+# Print the accuracy
+print("Accuracy:", accuracy)
+
+# Compute the AUC score
+import matplotlib.pyplot as plt
+from sklearn.metrics import RocCurveDisplay
+
+probs = classifier.predict_proba(np.squeeze(X_val))
+auc_score = roc_auc_score(y_val, probs[:, 1])
+RocCurveDisplay.from_predictions(y_val, probs[:, 1])
+# Print the AUC score
+print("AUC Score:", auc_score)
+plt.show()
+
+from sklearn.model_selection import cross_val_score
+
+# Perform cross-validation with 5 folds
+scores = cross_val_score(classifier, np.squeeze(feature_array_list), target_label_list, cv=5)
+
+# Print the accuracy scores for each fold
+print("Accuracy scores:", scores)
+
+# Print the average accuracy across all folds
+print("Average accuracy:", scores.mean())
+
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import ConfusionMatrixDisplay
+
+
+# Assuming you have true labels (y_true) and predicted labels (y_pred)
+cm = confusion_matrix(y_val, predictions)
+
+# If you have multiclass classification, you can use normalize='true' or 'all' to get normalized values in the heatmap.
+# For binary classification, you can omit the normalize parameter.
+disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+disp.plot(cmap='Blues', values_format='d')
+
+plt.title("Confusion Matrix")
+plt.show()
+
+# find false predictions
+
+mask = y_val != predictions
+
+indices_fail = np.where(mask)[0]
+
+for i in indices_fail:
+    print(sk_data.filenames[indices_test[i]])
+
+file_names = [sk_data.filenames[indices_test[i]] for i in indices_fail]
+
+sum(cm)
+sim(sum(cm))
+sum(sum(cm))
+count(X_train)
+X_train.count()
+len(X_train)+len(X_val)
+288/1855
+288/1567
+file_names
+mask
+import pandas as df
+import pandas as pd
+pd.DataFrame(file_names)
+pd.DataFrame(file_names).to_csv('incorrect_class_videos_full_list.txt')
+pd.DataFrame(file_names).to_csv('incorrect_class_videos_full_list.txt', header=False)
+mask_pass = y_val == predictions
+
+indices_pass = np.where(mask_pass)[0]
+
+# for i in indices_pass:
+#     print(sk_data.filenames[indices_pass[i]])
+
+file_names_pass = [sk_data.filenames[indices_test[i]] for i in indices_pass]
+
+pd.DataFrame(file_names_pass).to_csv('correct_class_videos_full_list.txt', header=False)
+count(x_val)
+len(x_val)
+y_train
+x_train
+X_train
+df_test
+df_train
+df1[~df1.isin(df_train[1])]
+df1[df1.isin(df_train[1])]
+df1[~df1.isin(df_test[1])].index.to_list()
+df1[!df1.isin(df_test[1])].index.to_list()
+import pandas as pd
+
+# Sample data for df1 and df_train
+data1 = {'ColumnA': [1, 2, 3, 4, 5]}
+data_train = {'ColumnB': [2, 4, 6]}
+
+df1 = pd.DataFrame(data1)
+df_train = pd.DataFrame(data_train)
+
+# Filtering df1 for values NOT in df_train's ColumnB
+filtered_df = df1[df1.isin(df_train['ColumnB'])]
+
+print(filtered_df)
+import pandas as pd
+
+# Sample data for df1 and df_train
+data1 = {'ColumnA': [1, 2, 3, 4, 5]}
+data_train = {'ColumnB': [2, 4, 6]}
+
+df1 = pd.DataFrame(data1)
+df_train = pd.DataFrame(data_train)
+
+# Filtering df1 for values NOT in df_train's ColumnB
+filtered_df = df1[~df1.isin(df_train['ColumnB'])]
+
+print(filtered_df)
+import pandas as pd
+
+# Sample data for df1 and df_train
+data1 = {'ColumnA': [1, 2, 3, 4, 5]}
+data_train = {'ColumnB': [2, 4, 6]}
+
+df1 = pd.DataFrame(data1)
+df_train = pd.DataFrame(data_train)
+
+# Filtering df1 for values NOT in df_train's ColumnB
+filtered_df = df1[~df1['ColumnA'].isin(df_train['ColumnB'])]
+
+print(filtered_df)
+runfile('C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\run_sk_loader.py', wdir='C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection')
+len(x_test)
+len(X_val)
+len(indices_test)
+len(df_test)
+df_test[1]
+len(df1)
+df[1].head()
+df[1]
+df1[0]
+df1.shape
+df_test_missed = df_test[1] - df1[df1.isin(df_test[1])]
+len(df_test[1])
+df_test[1][0]
+df_test[1][2]
+len(df1[df1.isin(df_test[1])])
+d = (df1[df1.isin(df_test[1])])
+type(d)
+len(d)
+type(df_test[1])
+# Sample data for two Series
+data1 = pd.Series([1, 2, 3, 4, 5])
+data2 = pd.Series([2, 4, 6])
+
+# Find items in Series 1 that are not in Series 2
+items_not_in_series2 = data1[~data1.isin(data2)]
+
+print(items_not_in_series2)
+data1 = df_test[1]
+len(data1)
+data2 = (df1[df1.isin(df_test[1])])
+len(data2)
+# Find items in Series 1 that are not in Series 2
+items_not_in_series2 = data1[~data1.isin(data2)]
+len(items_not_in_series2)
+items_not_in_series2
+runfile('C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection\\parse_log.py', wdir='C:\\Users\\karthik.venkat\\PycharmProjects\\video_anomaly_detection')
+df1
+auc
+file_names_pass
+len(file_names_pass)
+len(file_names_fail)
+len(file_names)
+cm

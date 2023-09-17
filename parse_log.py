@@ -1,3 +1,6 @@
+# Read the log file created the video parsers (Data_Loader) to determine which video files errored out
+# during the feature extraction process (generating .pt file).  This happens mostly due to out of memory.
+
 import pandas as pd
 def search_line_in_file(file_paths, search_text):
     df = pd.DataFrame(columns=["file_name", "line_num", 'text', 'video'])

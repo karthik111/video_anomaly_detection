@@ -28,13 +28,18 @@ df = pd.DataFrame(sk_data.filenames)
 df1 = df[0].apply(lambda x: x[x.rfind('\\') + 1:-3].capitalize())
 
 df1 = df1.str.replace('_', '').str.lower()
+
+# get the train and test data set from the data set specification
 df_train, df_test = load_train_list.get_train_test_data()
+
 df_train[1] = df_train[1].str.replace('_', '').str.lower()
 df_test[1] = df_test[1].str.replace('_', '').str.lower()
 
 indices_train = df1[df1.isin(df_train[1])].index.to_list()
 indices_test = df1[df1.isin(df_test[1])].index.to_list()
 
+# df_test is the list of test video names load from the published test list in
+# df1 is the full list of .pt file names which is present in the specified folder
 
 labels = sk_data.target_names
 
