@@ -1,6 +1,7 @@
-# Splits each test video into it's anomalous and normal segments
-# normal videos are not split
-# anomalous videos are split into begin_1_, anomaly_1 and end_1_ and _2 if more than 1 anomalous segments exist
+# Variant 1 of split_video where
+# begin_1 - spans till end of the first anomalous segment till
+# end_1 - from end of the first anomalous segment till the video end
+# and begin_2 if there are more than 1 anomalous segment in the video
 
 import os.path
 #
@@ -70,11 +71,29 @@ import Data_Loader
 import pandas as pd
 df_test_times = pd.read_csv('.\data\Temporal_Anomaly_Annotation_for_Testing_Videos.txt', sep= '  ', header=None)
 
-folder_path = "test_videos"
+folder_path = "test_videos_variant_1"
+
+def check_output_folder(folder_path):
+    from pathlib import Path
+    from datetime import datetime
+
+    # Get the current date and format it as YYYY-MM-DD
+    current_date = datetime.now().strftime("%Y-%m-%d")
+
+    directory_name = folder_path + "_" + current_date
+    path = Path(directory_name)
+    # Check if the directory already exists
+    if not path.exists():
+        path.mkdir()
+        print(f"Directory '{directory_name}' created successfully.")
+    else:
+        print(f"Directory '{directory_name}' already exists.")
+
 
 def split_videos():
     # run Data_Loader before this
 
+    check_output_folder(folder_path)
     dataset, _ = Data_Loader.get_dataset_and_loader()
     # Iterate through all rows using iterrows()
     for index, row in df_test_times.iterrows():
@@ -105,30 +124,33 @@ def split_videos():
 
                 # all frames before start of first anomaly
                 frames_b = vr.get_batch(range(0, b_1)).asnumpy()
-                # all frames in anomaly segment
-                frames_e = vr.get_batch(range(e_1 + 1, len(vr))).asnumpy()
-                # all frames in normal segment after anomaly segment above
-                frames_a = vr.get_batch(range(b_1, e_1 + 1)).asnumpy()
 
-                torchvision.io.write_video(folder_path + "\\begin_1_" + row[0], frames_b, 30, video_codec='libx264')
+                # all frames in normal segment after anomaly segment above
+                frames_e = vr.get_batch(range(e_1 + 1, len(vr))).asnumpy()
+
+                # all frames in anomaly segment, is now changed to
+                # Variant 1: all frames till end of the first anomaly
+                frames_a = vr.get_batch(range(0, e_1 + 1)).asnumpy()
+
+                #torchvision.io.write_video(folder_path + "\\begin_1_" + row[0], frames_b, 30, video_codec='libx264')
                 torchvision.io.write_video(folder_path + "\\anomaly_1_" + row[0], frames_a, 30, video_codec='libx264')
                 torchvision.io.write_video(folder_path + "\\end_1_" + row[0], frames_e, 30, video_codec='libx264')
 
                 if b_2 != -1:
                     frames_b = vr.get_batch(range(e_1+1, b_2)).asnumpy()
-                    frames_a = vr.get_batch(range(b_2, e_2 + 1)).asnumpy()
+                    frames_a = vr.get_batch(range(e_1+1, e_2 + 1)).asnumpy()
                     # Only if the end of the second anomaly segment does not span till the end of the video, then another normal segment exists after the second anomaly
                     if e_2 < len(vr) - 1:
                         frames_e = vr.get_batch(range(e_2 + 1, len(vr))).asnumpy()
                         torchvision.io.write_video(folder_path + "\\end_2_" + row[0], frames_e, 30, video_codec='libx264')
 
-                    torchvision.io.write_video(folder_path + "\\begin_2_+" + row[0], frames_b, 30, video_codec='libx264')
+                    #torchvision.io.write_video(folder_path + "\\begin_2_+" + row[0], frames_b, 30, video_codec='libx264')
                     torchvision.io.write_video(folder_path + "\\anomaly_2_" + row[0], frames_a, 30, video_codec='libx264')
 
 
 
 def main():
-    print("Calling split videos...")
+    print("Calling split videos: Variant 1...")
     split_videos()
     # You can put your main code here
 

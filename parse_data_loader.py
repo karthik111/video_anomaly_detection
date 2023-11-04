@@ -1,6 +1,8 @@
 # Uses a Data Loader to read the videos and class names (labels)
 # then calls a feature processing network like R3D to extract the features
 # and then calls save_file to save the video as a .pt file
+# to use this class, find and replace all occurerences of folder_array, with the source location of your videos
+# then invoke the parse_video_file_dataset() function
 
 import Data_Loader
 import VideoDataset
@@ -15,9 +17,12 @@ current_day = datetime.now().strftime("%d-%m-%y")
 logging.basicConfig(filename=f'Parse_data_set_log_file_{current_day}.log', level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
+
 def save_file(features, video_name, video_class):
-    #folder_array = [os.getcwd(), 'processed', 'data', video_class.lower()]
-    folder_array = [os.getcwd(), 'test_videos', 'processed', video_class.lower()]
+    # folder_array = [os.getcwd(), 'processed', 'data', video_class.lower()]
+    # folder_array = [os.getcwd(), 'test_videos', 'processed', video_class.lower()]
+    folder_array = [os.getcwd(), 'test_videos_variant_1', 'processed', video_class.lower()]
+
     folder_path = os.path.join(*folder_array)
 
     # Check if the folder exists
@@ -30,8 +35,9 @@ def save_file(features, video_name, video_class):
     logging.info(f"Saved feature to  folder: {file_name}")
 
 def is_processed(video_name, video_class):
-    # folder_array = [os.getcwd(), 'processed', 'data', video_class.lower(), f'{video_name.lower()}.pt']
+    folder_array = [os.getcwd(), 'processed', 'data', video_class.lower(), f'{video_name.lower()}.pt']
     folder_array = [os.getcwd(), 'test_videos', 'processed', video_class.lower(), f'{video_name.lower()}.pt']
+    folder_array = [os.getcwd(), 'test_videos_variant_1', 'processed', video_class.lower(), f'{video_name.lower()}.pt']
     folder_path = os.path.join(*folder_array)
     #print(f'In is_processed: {folder_path} : {os.path.exists(folder_path)}')
     if os.path.exists(folder_path):
@@ -64,7 +70,8 @@ def parse_multi_zip_dataset():
 
 def parse_video_file_dataset():
     # Create an instance of the custom dataset
-    video_folder = os.path.normpath(r'.\\test_videos')
+    #video_folder = os.path.normpath(r'.\\test_videos')
+    video_folder = os.path.normpath(r'.\\test_videos_variant_1')
     dataset = VideoDataset.VideoDataset(root_dir=video_folder, transform=None)
 
     classes = dataset.classes

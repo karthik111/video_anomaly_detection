@@ -13,8 +13,13 @@ def get_device():
 # pd.DataFrame(file_names).to_csv('incorrect_class_videos_full_list.txt')
 # pd.DataFrame(file_names_pass).to_csv('correct_class_videos_full_list.txt', header=False)
 
+# use for the full video list
 df_pass = pd.read_csv('correct_class_videos_full_list.txt', header=None)
 df_fail = pd.read_csv('incorrect_class_videos_full_list.txt', header=None)
+
+# use for the test videos each of which has been separated into normal and anomaly
+# df_pass = pd.read_csv('correct_class_videos_test_processed_list.txt', header=None)
+# df_fail = pd.read_csv('incorrect_class_videos_test_processed_list.txt', header=None)
 
 df_fail['predicted_class'] = df_fail[1].apply(lambda t: run_model_with_weights.get_score_category1(torch.load(t)))
 split_series = df_fail.predicted_class.apply(lambda x: pd.Series(x))
