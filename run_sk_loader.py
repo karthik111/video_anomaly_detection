@@ -1,3 +1,5 @@
+# For a given folder path where the processed features are present, this class sets up the X_train, y_train, X_val and Y_val.
+# Update the folder_array to use this class
 
 import os
 from torchvision import datasets

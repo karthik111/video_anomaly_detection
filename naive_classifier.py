@@ -1,3 +1,5 @@
+#Same as the all_files classifier. Only the folder_array and the target labels are different (as the name of the normal class folder is different from the ‘all_files’ version.
+
 import os
 from torchvision import datasets
 import sklearn.datasets
@@ -14,6 +16,8 @@ folder_array = [os.getcwd(), 'processed', 'data']
 
 # use for the extracted normal and anomaly segments from the frame marked videos
 folder_array = [os.getcwd(), 'test_videos', 'processed']
+folder_array = [os.getcwd(), 'test_videos_variant_1', 'processed']
+folder_array = [os.getcwd(), 'test_videos_variant_2_2023-11-04', 'processed']
 
 folder_path = os.path.join(*folder_array)
 
@@ -48,10 +52,10 @@ for i in range(len(sk_data.target)):
 ##
 
 # use for full train test list
-target_label_list = [0 if (value==12 or value==13) else 1 for value in sk_data.target]
+target_label_list = [0 if (value==12 or value==13 or value==14) else 1 for value in sk_data.target]
 
 # use for extracted normal or anomaly segments
-target_label_list = [0 if (value==7) else 1 for value in sk_data.target]
+target_label_list = [0 if (value==7 or value == 13) else 1 for value in sk_data.target]
 
 #target_label_list = sk_data.target
 
@@ -70,7 +74,8 @@ classifier = svm.SVC(decision_function_shape='ovo')
 #classifier = DummyClassifier(strategy='most_frequent')
 classifier = GradientBoostingClassifier()
 
-classifier.fit(np.squeeze(X_train), y_train)
+#classifier.fit(np.squeeze(X_train), y_train)
+classifier = load('gradient_boost_clf_all_files.joblib')
 
 # Predict using the trained classifier
 predictions = classifier.predict(np.squeeze(X_val))

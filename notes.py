@@ -45,3 +45,14 @@ items_not_in_series2
 normalvideos924x264
 normalvideos935x264
 Name: 1, dtype: object
+
+#names of all video files with a given target label in sk_loader
+sk_data.filenames[np.where(sk_data.target==11)[0]]
+
+# save a classifier to disk
+from joblib import dump
+dump(classifier, 'gradient_boost_clf_all_files.joblib')
+
+# Load the classifier from the saved file
+classifier = load('gradient_boost_clf_all_files.joblib')
+

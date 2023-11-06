@@ -1,4 +1,5 @@
 # Loads the list of training and test videos from text files provided with the dataset
+# The text files define the specific testing and training videos to use.
 
 import pandas as pd
 

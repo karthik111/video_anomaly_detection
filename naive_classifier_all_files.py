@@ -1,3 +1,5 @@
+#Trains and Infers a XGBoost Classifiers to load train and validation (20% of files) from the FULL data set
+
 import os
 from torchvision import datasets
 import sklearn.datasets
@@ -43,12 +45,12 @@ for i in range(len(sk_data.target)):
     num_classes[ dict_idx_to_class[sk_data.target[i] ] ] += 1
 ##
 
-target_label_list = [0 if (value==12 or value==13) else 1 for value in sk_data.target]
+target_label_list = [0 if (value==12 or value==13 or value==14) else 1 for value in sk_data.target]
 #target_label_list = sk_data.target
 
 indices = np.arange(len(feature_array_list))
 # Split the data into training and validation sets
-# X_train, X_val, y_train, y_val, indices_train, indices_test = train_test_split(feature_array_list, target_label_list, indices, test_size=0.2, random_state=42)
+X_train, X_val, y_train, y_val, indices_train, indices_test = train_test_split(feature_array_list, target_label_list, indices, test_size=0.2, random_state=42)
 
 ## TO DO: RUN run_sk_loader.py
 
