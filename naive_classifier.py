@@ -74,8 +74,8 @@ classifier = svm.SVC(decision_function_shape='ovo')
 #classifier = DummyClassifier(strategy='most_frequent')
 classifier = GradientBoostingClassifier()
 
-#classifier.fit(np.squeeze(X_train), y_train)
-classifier = load('gradient_boost_clf_all_files.joblib')
+classifier.fit(np.squeeze(X_train), y_train)
+#classifier = load('gradient_boost_clf_all_files.joblib')
 
 # Predict using the trained classifier
 predictions = classifier.predict(np.squeeze(X_val))
