@@ -11,14 +11,16 @@ from utils.utils import build_cfg_path, form_list_from_user_input, sanity_check
 from datetime import datetime
 import os
 import logging
-import parse_data_loader
-import Data_Loader
+#import parse_data_loader
+import Data_Loader, CustomConfigParser
 import VideoDataset
 import torch
 import sys
 import logging
-import r3d_18_feature_extraction
+#import r3d_18_feature_extraction
 from datetime import datetime
+from CustomConfigParser import CustomConfigParser, CurrentTimeInterpolation
+from configparser import ExtendedInterpolation
 
 videos_folder = 'test_videos_variant_2_2023-11-04'
 class ParseDataLoader():
@@ -30,7 +32,9 @@ def save_file(features, video_name, video_class):
     # folder_array = [os.getcwd(), 'test_videos', 'processed', video_class.lower()]
     # folder_array = [os.getcwd(), 'test_videos_variant_1', 'processed', video_class.lower()]
     #folder_array = [os.getcwd(), videos_folder, 'processed', video_class.lower()]
-    folder_array = [os.getcwd(), videos_folder, 'processed_s3d', video_class.lower()]
+    config_parser = CustomConfigParser(interpolation=ExtendedInterpolation())
+    output_path = config_parser.get('feature_extraction', 'output_path')
+    folder_array = [output_path, video_class.lower()]
 
     folder_path = os.path.join(*folder_array)
 
@@ -48,7 +52,10 @@ def is_processed(video_name, video_class):
     folder_array = [os.getcwd(), 'test_videos', 'processed', video_class.lower(), f'{video_name.lower()}.pt']
     folder_array = [os.getcwd(), 'test_videos_variant_1', 'processed', video_class.lower(), f'{video_name.lower()}.pt']
     folder_array = [os.getcwd(), videos_folder, 'processed', video_class.lower(), f'{video_name.lower()}.pt']
-    folder_array = [os.getcwd(), videos_folder, 'processed_s3d', video_class.lower(), f'{video_name.lower()}.pt']
+
+    config_parser = CustomConfigParser(interpolation=ExtendedInterpolation())
+    output_path = config_parser.get('feature_extraction', 'output_path')
+    folder_array = [output_path, video_class.lower(), f'{video_name.lower()}.pt']
 
     folder_path = os.path.join(*folder_array)
     #print(f'In is_processed: {folder_path} : {os.path.exists(folder_path)}')
@@ -73,12 +80,12 @@ def parse_multi_zip_dataset(dataset, dataloader, extractor):
                 input_vid = torch.tensor(video.transpose(0,3,1,2))
                 print(video_name, video.shape)
                 features = extractor.extract(video)
-                print("Extracted features: ", type(features))
+                print("Extracted features: ", type(features), features['s3d'].shape)
                 #import numpy as np
                 #features = np.mean(features[None], axis=0)
                 #return feature
                 #features = r3d_18_feature_extraction.extract_penultimate_features(input_vid)
-                save_file(features[None], video_name, video_class)
+                save_file(features['s3d'], video_name, video_class)
             except Exception as e:
                 traceback.print_exc()
                 logging.error(f"An error occurred with file: {video_name}", exc_info=True)
@@ -107,4 +114,5 @@ def main(args_cli):
 
 if __name__ == '__main__':
     args_cli = OmegaConf.from_cli()
+    print(args_cli)
     main(args_cli)

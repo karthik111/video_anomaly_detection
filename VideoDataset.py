@@ -49,17 +49,17 @@ transform = transforms.Compose([
 ])
 
 # Create an instance of the custom dataset
-video_folder = os.path.normpath(r'.\\test_videos')
-dataset = VideoDataset(root_dir=video_folder, transform=None)
+#video_folder = os.path.normpath(r'.\\test_videos')
+#dataset = VideoDataset(root_dir=video_folder, transform=None)
 
 # Create a data loader
-dataloader = DataLoader(dataset, batch_size=1, shuffle=True)
+#dataloader = DataLoader(dataset, batch_size=1, shuffle=True)
 
 # Iterate through the dataloader
-for batch in dataloader:
-    # 'batch' contains a list of tensors, each representing a video's frames
-    # You can process the frames here, pass them through a model, etc.
-    print("Batch size:", len(batch))
-    print("Frame tensor shape:", batch[0].shape)  # Shape of the first video's frames
-    break  # Stop after processing the first batch for demonstration
+# for batch in dataloader:
+#     # 'batch' contains a list of tensors, each representing a video's frames
+#     # You can process the frames here, pass them through a model, etc.
+#     print("Batch size:", len(batch))
+#     print("Frame tensor shape:", batch[0].shape)  # Shape of the first video's frames
+#     break  # Stop after processing the first batch for demonstration
 
